@@ -1,18 +1,10 @@
-import {
-  Controller,
-  Get,
-  Post,
-  Body,
-  Param,
-  Delete,
-  Put,
-  ParseUUIDPipe,
-  HttpCode,
-} from '@nestjs/common';
+import { Controller, Get, Post, Body, Param, Delete, Put, ParseUUIDPipe, HttpCode } from '@nestjs/common';
+import { ApiTags } from '@nestjs/swagger';
 import { CreateTrackDto } from './dto/create-track.dto';
 import { UpdateTrackDto } from './dto/update-track.dto';
 import { TracksService } from './tracks.service';
 
+@ApiTags('Track')
 @Controller('track')
 export class TracksController {
   constructor(private readonly tracksService: TracksService) {}
@@ -33,10 +25,7 @@ export class TracksController {
   }
 
   @Put(':id')
-  update(
-    @Param('id', new ParseUUIDPipe()) id: string,
-    @Body() updateTrackDto: UpdateTrackDto,
-  ) {
+  update(@Param('id', new ParseUUIDPipe()) id: string, @Body() updateTrackDto: UpdateTrackDto) {
     return this.tracksService.update(id, updateTrackDto);
   }
 

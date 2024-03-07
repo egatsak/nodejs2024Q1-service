@@ -1,14 +1,8 @@
-import {
-  Controller,
-  Get,
-  Post,
-  Param,
-  Delete,
-  HttpCode,
-  ParseUUIDPipe,
-} from '@nestjs/common';
+import { Controller, Get, Post, Param, Delete, HttpCode, ParseUUIDPipe } from '@nestjs/common';
 import { FavoritesService } from './favorites.service';
+import { ApiTags } from '@nestjs/swagger';
 
+@ApiTags('Favs')
 @Controller('favs')
 export class FavoritesController {
   constructor(private readonly favoritesService: FavoritesService) {}

@@ -2,7 +2,7 @@ import { Injectable, NotFoundException } from '@nestjs/common';
 import { Db } from 'src/db/db.service';
 import { CreateArtistDto } from './dto/create-artist.dto';
 import { UpdateArtistDto } from './dto/update-artist.dto';
-import { Artist } from './entities/artists.interface';
+import { Artist } from './entities/artists.entity';
 
 @Injectable()
 export class ArtistsService {
@@ -47,19 +47,9 @@ export class ArtistsService {
       equals: artist.id,
     });
 
-    await Promise.all(
-      albums.map(
-        async (album) =>
-          await this.db.updateAlbum(album.id, { ...album, artistId: null }),
-      ),
-    );
+    await Promise.all(albums.map(async (album) => await this.db.updateAlbum(album.id, { ...album, artistId: null })));
 
-    await Promise.all(
-      tracks.map(
-        async (track) =>
-          await this.db.updateTrack(track.id, { ...track, artistId: null }),
-      ),
-    );
+    await Promise.all(tracks.map(async (track) => await this.db.updateTrack(track.id, { ...track, artistId: null })));
     await this.db.removeArtistFromFavs(id);
     await this.db.deleteArtist(id);
   }

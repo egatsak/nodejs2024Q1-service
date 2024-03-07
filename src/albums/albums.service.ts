@@ -56,12 +56,7 @@ export class AlbumsService {
       equals: album.id,
     });
 
-    await Promise.all(
-      tracks.map(
-        async (track) =>
-          await this.db.updateTrack(track.id, { ...track, albumId: null }),
-      ),
-    );
+    await Promise.all(tracks.map(async (track) => await this.db.updateTrack(track.id, { ...track, albumId: null })));
 
     await this.db.removeAlbumFromFavs(id);
     await this.db.deleteAlbum(id);

@@ -1,9 +1,10 @@
+import { randomUUID } from 'node:crypto';
 import { Injectable } from '@nestjs/common';
-import { v4 as uuid } from 'uuid';
+
 import { User } from 'src/users/users.interface';
-import { Artist } from 'src/artists/entities/artists.interface';
+import { Artist } from 'src/artists/entities/artists.entity';
 import { Album } from 'src/albums/entities/album.entity';
-import { Track } from 'src/tracks/entities/tracks.interface';
+import { Track } from 'src/tracks/entities/tracks.entity';
 import { Favorites } from 'src/favorites/entities/favorite.entity';
 import { CreateUserDto } from 'src/users/dto/create-user.dto';
 import { UpdateUserDto } from 'src/users/dto/update-user.dto';
@@ -40,7 +41,7 @@ export class Db {
   async createUser(dto: CreateUserDto): Promise<User> {
     const newUser: User = {
       ...dto,
-      id: uuid(),
+      id: randomUUID(),
       version: 1,
       createdAt: Date.now(),
       updatedAt: Date.now(),
@@ -85,7 +86,7 @@ export class Db {
   }
 
   async createArtist(dto: CreateArtistDto): Promise<Artist> {
-    const newArtist: Artist = { ...dto, id: uuid() };
+    const newArtist: Artist = { ...dto, id: randomUUID() };
     this.artists.push(newArtist);
     return newArtist;
   }
@@ -113,9 +114,7 @@ export class Db {
   }
 
   async getAlbumByKey({ key, equals }): Promise<Album | null> {
-    const album = this.albums.find(
-      (item) => item[key as keyof Album] === equals,
-    );
+    const album = this.albums.find((item) => item[key as keyof Album] === equals);
 
     if (!album) {
       return null;
@@ -130,7 +129,7 @@ export class Db {
   }
 
   async createAlbum(dto: CreateAlbumDto): Promise<Album> {
-    const newAlbum: Album = { ...dto, id: uuid() };
+    const newAlbum: Album = { ...dto, id: randomUUID() };
     this.albums.push(newAlbum);
     return newAlbum;
   }
@@ -168,7 +167,7 @@ export class Db {
   }
 
   async createTrack(dto: CreateTrackDto): Promise<Track> {
-    const newTrack: Track = { ...dto, id: uuid() };
+    const newTrack: Track = { ...dto, id: randomUUID() };
     this.tracks.push(newTrack);
     return newTrack;
   }

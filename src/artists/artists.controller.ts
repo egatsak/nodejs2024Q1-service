@@ -1,25 +1,17 @@
-import {
-  Controller,
-  Get,
-  Post,
-  Put,
-  Delete,
-  Body,
-  Param,
-  ParseUUIDPipe,
-  HttpCode,
-} from '@nestjs/common';
+import { Controller, Get, Post, Put, Delete, Body, Param, ParseUUIDPipe, HttpCode } from '@nestjs/common';
+import { ApiTags } from '@nestjs/swagger';
 import { ArtistsService } from './artists.service';
 import { CreateArtistDto } from './dto/create-artist.dto';
 import { UpdateArtistDto } from './dto/update-artist.dto';
-import { Artist } from './entities/artists.interface';
+import { Artist } from './entities/artists.entity';
 
+@ApiTags('Artist')
 @Controller('artist')
 export class ArtistsController {
   constructor(private readonly artistsService: ArtistsService) {}
 
   @Post()
-  create(@Body() createArtistDto: CreateArtistDto): Promise<Artist> {
+  create(@Body() createArtistDto: CreateArtistDto) {
     return this.artistsService.create(createArtistDto);
   }
 
@@ -34,10 +26,7 @@ export class ArtistsController {
   }
 
   @Put(':id')
-  update(
-    @Param('id', new ParseUUIDPipe()) id: string,
-    @Body() updateArtist: UpdateArtistDto,
-  ): Promise<Artist> {
+  update(@Param('id', new ParseUUIDPipe()) id: string, @Body() updateArtist: UpdateArtistDto): Promise<Artist> {
     return this.artistsService.update(id, updateArtist);
   }
 

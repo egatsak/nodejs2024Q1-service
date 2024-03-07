@@ -9,14 +9,13 @@ async function bootstrap() {
   const app = await NestFactory.create(AppModule);
 
   const config = new DocumentBuilder()
-    .setTitle('Nest.js REST Service')
+    .setTitle('Home library REST Service')
     .setDescription('REST API Docs')
     .setVersion('1.0.0')
-    .addTag('egatsak')
     .build();
 
   const document = SwaggerModule.createDocument(app, config);
-  SwaggerModule.setup('/api/docs', app, document);
+  SwaggerModule.setup('/docs', app, document);
 
   app.useGlobalPipes(
     new ValidationPipe({
@@ -29,8 +28,9 @@ async function bootstrap() {
     await app.listen(Number(PORT), () => {
       console.log(`Server listening on port ${PORT}`);
     });
-  } catch (e: any) {
+  } catch (e: unknown) {
     console.log(e);
+    process.exit(1);
   }
 }
 

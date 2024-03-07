@@ -1,18 +1,10 @@
-import {
-  Controller,
-  Get,
-  Post,
-  Body,
-  Param,
-  Delete,
-  Put,
-  ParseUUIDPipe,
-  HttpCode,
-} from '@nestjs/common';
+import { Controller, Get, Post, Body, Param, Delete, Put, ParseUUIDPipe, HttpCode } from '@nestjs/common';
+import { ApiTags } from '@nestjs/swagger';
 import { AlbumsService } from './albums.service';
 import { CreateAlbumDto } from './dto/create-album.dto';
 import { UpdateAlbumDto } from './dto/update-album.dto';
 
+@ApiTags('Album')
 @Controller('album')
 export class AlbumsController {
   constructor(private readonly albumsService: AlbumsService) {}
@@ -33,10 +25,7 @@ export class AlbumsController {
   }
 
   @Put(':id')
-  update(
-    @Param('id', new ParseUUIDPipe()) id: string,
-    @Body() updateAlbumDto: UpdateAlbumDto,
-  ) {
+  update(@Param('id', new ParseUUIDPipe()) id: string, @Body() updateAlbumDto: UpdateAlbumDto) {
     return this.albumsService.update(id, updateAlbumDto);
   }
 
