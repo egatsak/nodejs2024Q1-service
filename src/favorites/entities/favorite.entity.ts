@@ -1,6 +1,6 @@
 import { Album } from 'src/albums/entities/album.entity';
-import { Artist } from 'src/artists/entities/artists.entity';
-import { Track } from 'src/tracks/entities/tracks.entity';
+import { Artist } from 'src/artists/entities/artist.entity';
+import { Track } from 'src/tracks/entities/track.entity';
 
 interface IFavorites {
   artists: string[]; // favorite artists ids

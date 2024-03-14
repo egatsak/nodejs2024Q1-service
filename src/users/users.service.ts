@@ -2,7 +2,7 @@ import { Injectable, NotFoundException, ForbiddenException } from '@nestjs/commo
 import { Db } from 'src/db/db.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdatePasswordDto } from './dto/update-password.dto';
-import { User } from './users.interface';
+import { User } from './entities/user.entity';
 
 @Injectable()
 export class UsersService {

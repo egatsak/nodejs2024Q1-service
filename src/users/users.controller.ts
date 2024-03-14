@@ -10,6 +10,7 @@ import {
   UseInterceptors,
   ParseUUIDPipe,
   HttpCode,
+  ValidationPipe,
 } from '@nestjs/common';
 import {
   ApiCreatedResponse,
@@ -21,7 +22,7 @@ import {
 } from '@nestjs/swagger';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdatePasswordDto } from './dto/update-password.dto';
-import { User } from './users.interface';
+import { User } from './entities/user.entity';
 import { UsersService } from './users.service';
 import { UserScheme } from './users.scheme';
 
@@ -77,7 +78,7 @@ export class UsersController {
   @Put(':id')
   changePassword(
     @Param('id', new ParseUUIDPipe()) id: string,
-    @Body() updatePassword: UpdatePasswordDto,
+    @Body(ValidationPipe) updatePassword: UpdatePasswordDto,
   ): Promise<User> {
     return this.userService.updateUserPassword(id, updatePassword);
   }

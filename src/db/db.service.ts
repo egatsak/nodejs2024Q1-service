@@ -1,10 +1,10 @@
 import { randomUUID } from 'node:crypto';
 import { Injectable } from '@nestjs/common';
 
-import { User } from 'src/users/users.interface';
-import { Artist } from 'src/artists/entities/artists.entity';
+import { User } from 'src/users/entities/user.entity';
+import { Artist } from 'src/artists/entities/artist.entity';
 import { Album } from 'src/albums/entities/album.entity';
-import { Track } from 'src/tracks/entities/tracks.entity';
+import { Track } from 'src/tracks/entities/track.entity';
 import { Favorites } from 'src/favorites/entities/favorite.entity';
 import { CreateUserDto } from 'src/users/dto/create-user.dto';
 import { UpdateUserDto } from 'src/users/dto/update-user.dto';
