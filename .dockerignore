@@ -1,0 +1,8 @@
+/node_modules
+/dist
+.dockerignore
+Dockerfile
+compose.yaml
+*.example
+**/.git
+**/.gitignore
