@@ -2,19 +2,19 @@
 FROM node:20-alpine
 
 # Docker working directory
-WORKDIR /usr/app
+WORKDIR /app
 
 # Copying file into APP directory of docker
-COPY ./package.json ./package-lock.json /usr/app/
+COPY ./package.json ./package-lock.json /app/
 
 # Then install the NPM module
 RUN npm ci && npm cache clean --force
 
 # Copy current directory to APP folder
-COPY . /usr/app/
+COPY . /app/
 
 EXPOSE ${PORT}
 
-VOLUME ["/usr/app"]
+VOLUME ["/app"]
 
 CMD ["npm", "run", "start:dev"]

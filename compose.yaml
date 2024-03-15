@@ -1,4 +1,5 @@
-version: '3.5' # up-to-date
+version: '3.8' # up-to-date
+
 services: 
   db:
     image: postgres
@@ -7,13 +8,14 @@ services:
     environment: 
       - POSTGRES_USER=${DATABASE_USER}
       - POSTGRES_PASSWORD=${DATABASE_PASSWORD}
-      - POSTGRES_DB=${DB_NAME}
+      - POSTGRES_DB=${DATABASE_NAME}
     volumes:
-      - pgdata:/var/lib/postgresql/data
+      - pgdata-2024:/var/lib/postgresql/data
     networks:
-      - db_network_2024
+      - my_network
     ports: 
       - "${POSTGRES_PORT}:5432"
+
   nestjs:
     image: nestjs-rest-service-2024
     container_name: nest-rest-service-2024
@@ -23,24 +25,16 @@ services:
     restart: always
     env_file:
       - .env
-    environment: 
-      - DB_TYPE=${DB_TYPE}
-      - POSTGRES_DB=${DB_NAME}
-      - POSTGRES_PORT=${POSTGRES_PORT}
-      - POSTGRES_HOST=${POSTGRES_HOST}
-      - POSTGRES_USER=${DATABASE_USER}
-      - POSTGRES_PASSWORD=${DATABASE_PASSWORD}
-      - JWT_SECRET_KEY=${JWT_SECRET_KEY}
     ports: 
       - "${PORT}:${PORT}" # expose-to-the-world : only-in-the-docker
     depends_on: 
       - db
     networks:
-      - db_network_2024
+      - my_network
     volumes: 
-      - .:/usr/app/
-      - node_modules:/usr/app/node_modules
-      - migrations:/usr/app/migrations 
+      - .:/app
+      - node_modules-2024:/app/node_modules
+
   pgadmin:
     image: dpage/pgadmin4
     container_name: pgadmin4-2024
@@ -51,16 +45,17 @@ services:
     ports: 
       - "8080:80"
     volumes: 
-      - pgadmin-data:/var/lib/pgadmin
+      - pgadmin-data-2024:/var/lib/pgadmin
     depends_on: 
       - db
     networks:
-      - db_network_2024
+      - my_network
+
 volumes:
-  pgdata:
-  pgadmin-data:
-  migrations:
-  node_modules:
+  pgdata-2024:
+  pgadmin-data-2024:
+  node_modules-2024:
+
 networks:
-  db_network_2024:
+  my_network:
     driver: bridge

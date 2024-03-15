@@ -28,7 +28,7 @@
     "typeorm:generate": "npm run typeorm migration:generate -- -d ./src/typeorm.config.ts ./migrations/rest-service",
     "typeorm:run": "npm run typeorm migration:run -- -d ./src/typeorm.config.ts",
     "typeorm:revert": "npm run typeorm migration:revert -- -d ./src/typeorm.config.ts",
-    "scan": "docker scan postgres && docker scan nestjs-rest-service"
+    "scan": "docker scan postgres && docker scan nestjs-rest-service-2024"
   },
   "dependencies": {
     "@nestjs/common": "^10.3.3",
