@@ -1,25 +1,28 @@
-import { Exclude } from 'class-transformer';
+import { Exclude, Transform } from 'class-transformer';
+import { Column, CreateDateColumn, Entity, PrimaryGeneratedColumn, UpdateDateColumn, VersionColumn } from 'typeorm';
 
-interface IUser {
-  id: string; // uuid v4
-  login: string;
-  password: string; // integer number, increments on update
-  version: number;
-  createdAt: number; // timestamp of creation
-  updatedAt: number; // timestamp of last update
-}
-
-export class User implements IUser {
+@Entity()
+export class User {
+  @PrimaryGeneratedColumn('uuid')
   id: string;
-  login: string;
-  version: number;
-  createdAt: number;
-  updatedAt: number;
 
+  login: string;
+  @VersionColumn()
+  version: number;
+
+  @Transform((item) => item.value.getTime())
+  @CreateDateColumn()
+  createdAt: Date;
+
+  @Transform((item) => item.value.getTime())
+  @UpdateDateColumn()
+  updatedAt: Date;
+
+  @Column()
   @Exclude()
   password: string;
 
-  constructor(partial: Partial<IUser>) {
+  constructor(partial: Partial<User>) {
     Object.assign(this, partial);
   }
 }

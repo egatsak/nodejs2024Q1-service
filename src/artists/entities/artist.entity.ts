@@ -1,11 +1,13 @@
-interface IArtist {
-  id: string; // uuid v4
-  name: string;
-  grammy: boolean;
-}
+import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
 
-export class Artist implements IArtist {
+@Entity()
+export class Artist {
+  @PrimaryGeneratedColumn('uuid')
   id: string;
+
+  @Column()
   name: string;
+
+  @Column({ default: false })
   grammy: boolean;
 }
