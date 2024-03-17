@@ -28,7 +28,7 @@ export class AlbumsService {
   }
 
   async findAll(): Promise<Album[]> {
-    return await this.albumsRepository.findAll();
+    return await this.albumsRepository.find();
   }
 
   async findOne(id: string): Promise<Album> {

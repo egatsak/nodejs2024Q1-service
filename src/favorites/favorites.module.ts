@@ -13,6 +13,7 @@ import { TracksModule } from '../tracks/tracks.module';
 import { Album } from 'src/albums/entities/album.entity';
 import { Artist } from 'src/artists/entities/artist.entity';
 import { Track } from 'src/tracks/entities/track.entity';
+import { FavoriteAlbumsRepository, FavoriteArtistsRepository, FavoriteTracksRepository } from './favorites.repository';
 
 @Module({
   imports: [
@@ -22,6 +23,14 @@ import { Track } from 'src/tracks/entities/track.entity';
     TypeOrmModule.forFeature([Album, Artist, Track, FavoriteTrack, FavoriteAlbum, FavoriteArtist]),
   ],
   controllers: [FavoritesController],
-  providers: [FavoritesService, AlbumsRepository, ArtistsRepository, TracksRepository],
+  providers: [
+    FavoritesService,
+    AlbumsRepository,
+    ArtistsRepository,
+    TracksRepository,
+    FavoriteArtistsRepository,
+    FavoriteAlbumsRepository,
+    FavoriteTracksRepository,
+  ],
 })
 export class FavoritesModule {}

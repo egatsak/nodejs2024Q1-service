@@ -9,6 +9,7 @@ services:
       - POSTGRES_USER=${DATABASE_USER}
       - POSTGRES_PASSWORD=${DATABASE_PASSWORD}
       - POSTGRES_DB=${DATABASE_NAME}
+      - POSTGRES_PORT=${POSTGRES_PORT}
     volumes:
       - pgdata-2024:/var/lib/postgresql/data
     networks:

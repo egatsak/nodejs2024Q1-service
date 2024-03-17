@@ -41,7 +41,7 @@ export class TracksService {
   }
 
   async findAll() {
-    return await this.tracksRepository.findAll();
+    return await this.tracksRepository.find();
   }
 
   async findOne(id: string) {

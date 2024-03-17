@@ -9,8 +9,8 @@ export class FavoriteArtist {
     this.artistId = artistId;
   }
   // TODO delete constructor?
-  @PrimaryGeneratedColumn()
-  id: number;
+  @PrimaryGeneratedColumn('uuid')
+  id: string;
 
   @Column({ name: 'artist_id', type: 'uuid' })
   artistId: string | null;
@@ -29,8 +29,8 @@ export class FavoriteAlbum {
     this.albumId = albumId;
   }
 
-  @PrimaryGeneratedColumn()
-  id: number;
+  @PrimaryGeneratedColumn('uuid')
+  id: string;
 
   @Column({ name: 'album_id', type: 'uuid' })
   albumId: string | null;
@@ -49,8 +49,8 @@ export class FavoriteTrack {
     this.trackId = trackId;
   }
 
-  @PrimaryGeneratedColumn()
-  id: number;
+  @PrimaryGeneratedColumn('uuid')
+  id: string;
 
   @Column({ name: 'track_id', type: 'uuid' })
   trackId: string | null;

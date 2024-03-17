@@ -14,7 +14,7 @@ export class ArtistsService {
   }
 
   async getAll(): Promise<Artist[]> {
-    return await this.artistsRepository.findAll();
+    return await this.artistsRepository.find();
   }
 
   async getById(id: string): Promise<Artist> {

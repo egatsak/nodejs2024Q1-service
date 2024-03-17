@@ -9,7 +9,7 @@ export class UsersService {
   constructor(private readonly userRepository: UsersRepository) {}
 
   async getAll(): Promise<User[]> {
-    const users = await this.userRepository.findAll();
+    const users = await this.userRepository.find();
     return users.map((user) => new User(user));
   }
 
