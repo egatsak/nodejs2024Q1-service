@@ -8,7 +8,6 @@ export class FavoriteArtist {
   constructor(artistId: string | null) {
     this.artistId = artistId;
   }
-  // TODO delete constructor?
   @PrimaryGeneratedColumn('uuid')
   id: string;
 

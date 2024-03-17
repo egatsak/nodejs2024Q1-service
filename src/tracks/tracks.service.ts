@@ -14,22 +14,23 @@ export class TracksService {
   ) {}
 
   async create(createTrackDto: CreateTrackDto) {
-    // TODO refactor to promise all ?
-    const artist = await this.artistsRepository.findOne({
-      where: {
-        id: createTrackDto.artistId,
-      },
-    });
+    const [artist, album] = await Promise.all([
+      this.artistsRepository.findOne({
+        where: {
+          id: createTrackDto.artistId,
+        },
+      }),
+
+      this.albumsRepository.findOne({
+        where: {
+          id: createTrackDto.albumId,
+        },
+      }),
+    ]);
 
     if (!artist && createTrackDto.artistId !== null) {
       throw new NotFoundException(`Artist not found`);
     }
-
-    const album = await this.albumsRepository.findOne({
-      where: {
-        id: createTrackDto.albumId,
-      },
-    });
 
     if (!album && createTrackDto.albumId !== null) {
       throw new NotFoundException(`Album not found`);

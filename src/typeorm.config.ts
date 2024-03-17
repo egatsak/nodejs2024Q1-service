@@ -1,8 +1,8 @@
 import { DataSource, DataSourceOptions } from 'typeorm';
 
 export const typeOrmConfig = {
-  // TODO fix issue with error at migration generation
   type: 'postgres',
+  // TODO fix: make env available to typeorm migrations generator
   host: process.env.POSTGRES_HOST ?? 'localhost',
   port: +process.env.POSTGRES_PORT ?? 5432,
   username: process.env.DATABASE_USER ?? 'postgres',
