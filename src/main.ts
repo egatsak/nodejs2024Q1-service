@@ -2,11 +2,11 @@ import { NestFactory } from '@nestjs/core';
 import { ValidationPipe } from '@nestjs/common';
 import { AppModule } from './app.module';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
-
-const PORT = process.env.PORT || 4000;
+import { ConfigService } from '@nestjs/config';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
+  const configService = app.get(ConfigService);
 
   const config = new DocumentBuilder()
     .setTitle('Home library REST Service')
@@ -18,10 +18,11 @@ async function bootstrap() {
   SwaggerModule.setup('/docs', app, document);
 
   app.useGlobalPipes(new ValidationPipe({ whitelist: true, forbidNonWhitelisted: true, transform: true }));
+  const port = configService.get('PORT');
 
   try {
-    await app.listen(Number(PORT), () => {
-      console.log(`Server listening on port ${PORT}`);
+    await app.listen(Number(port), () => {
+      console.log(`Server listening on port ${port}`);
     });
   } catch (e: unknown) {
     console.log(e);

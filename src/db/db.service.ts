@@ -29,50 +29,50 @@ export class Db {
 
   /// === USERS ===
 
-  async getAllUsers(): Promise<User[]> {
-    return this.users;
-  }
+  // async getAllUsers(): Promise<User[]> {
+  //   return this.users;
+  // }
 
-  async getUserByKey({ key, equals }): Promise<User | null> {
-    const user = this.users.find((user) => user[key] === equals);
-    return user;
-  }
+  // async getUserByKey({ key, equals }): Promise<User | null> {
+  //   const user = this.users.find((user) => user[key] === equals);
+  //   return user;
+  // }
 
-  async createUser(dto: CreateUserDto): Promise<User> {
-    const newUser: User = {
-      ...dto,
-      id: randomUUID(),
-      version: 1,
-      createdAt: Date.now(),
-      updatedAt: Date.now(),
-    };
+  // async createUser(dto: CreateUserDto): Promise<User> {
+  //   const newUser: User = {
+  //     ...dto,
+  //     id: randomUUID(),
+  //     version: 1,
+  //     createdAt: Date.now(),
+  //     updatedAt: Date.now(),
+  //   };
 
-    this.users.push(newUser);
+  //   this.users.push(newUser);
 
-    return newUser;
-  }
+  //   return newUser;
+  // }
 
-  async updateUser(id: string, dto: UpdateUserDto): Promise<User | null> {
-    /*     const index = this.users.findIndex((user) => user.id === id); */
-    const user = this.users.find((user) => user.id === id);
+  // async updateUser(id: string, dto: UpdateUserDto): Promise<User | null> {
+  //   /*     const index = this.users.findIndex((user) => user.id === id); */
+  //   const user = this.users.find((user) => user.id === id);
 
-    if (!user) {
-      return null;
-    }
+  //   if (!user) {
+  //     return null;
+  //   }
 
-    for (const key in dto) {
-      user[key] = dto[key];
-    }
+  //   for (const key in dto) {
+  //     user[key] = dto[key];
+  //   }
 
-    user.version++;
-    user.updatedAt = Date.now();
-    return user;
-  }
+  //   user.version++;
+  //   user.updatedAt = Date.now();
+  //   return user;
+  // }
 
-  async deleteUser(id: string): Promise<void> {
-    const index = this.users.findIndex((user) => user.id === id);
-    this.users.splice(index, 1);
-  }
+  // async deleteUser(id: string): Promise<void> {
+  //   const index = this.users.findIndex((user) => user.id === id);
+  //   this.users.splice(index, 1);
+  // }
 
   /// === ARTISTS ===
 

@@ -92,7 +92,7 @@ export class UsersController {
   @UseInterceptors(ClassSerializerInterceptor)
   @Delete(':id')
   @HttpCode(204)
-  deleteUser(@Param('id', new ParseUUIDPipe()) id: string): Promise<User> {
+  deleteUser(@Param('id', new ParseUUIDPipe()) id: string): Promise<void> {
     return this.userService.deleteUser(id);
   }
 }
