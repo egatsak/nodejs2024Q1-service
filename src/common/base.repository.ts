@@ -17,7 +17,7 @@ export abstract class BaseRepository<T extends { id: string }> {
   }
 
   // TODO get rid of any
-  async findOneById(id: any): Promise<T> {
+  async findOneById(id: any): Promise<T | null> {
     return await this.repository.findOneBy({ id });
   }
 
@@ -31,11 +31,11 @@ export abstract class BaseRepository<T extends { id: string }> {
     return result.affected;
   }
 
-  async preload(entityLike: DeepPartial<T>): Promise<T> {
+  async preload(entityLike: DeepPartial<T>): Promise<T | undefined> {
     return await this.repository.preload(entityLike);
   }
 
-  async findOne(options: FindOneOptions<T>): Promise<T> {
+  async findOne(options: FindOneOptions<T>): Promise<T | null> {
     return await this.repository.findOne(options);
   }
 }

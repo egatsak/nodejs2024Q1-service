@@ -1,4 +1,14 @@
-import { Controller, Get, Post, Param, Delete, HttpCode, ParseUUIDPipe } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Param,
+  Delete,
+  HttpCode,
+  ParseUUIDPipe,
+  UseInterceptors,
+  ClassSerializerInterceptor,
+} from '@nestjs/common';
 import { FavoritesService } from './favorites.service';
 import { ApiTags } from '@nestjs/swagger';
 
@@ -8,8 +18,9 @@ export class FavoritesController {
   constructor(private readonly favoritesService: FavoritesService) {}
 
   @Get()
+  @UseInterceptors(ClassSerializerInterceptor)
   findAll() {
-    return this.favoritesService.findAllAndPopulate();
+    return this.favoritesService.findAll();
   }
 
   @Post('artist/:id')
