@@ -42,8 +42,9 @@ services:
     environment: 
       - PGADMIN_DEFAULT_EMAIL=${PGADMIN_DEFAULT_EMAIL}
       - PGADMIN_DEFAULT_PASSWORD=${PGADMIN_DEFAULT_PASSWORD}
+      - PGADMIN_PORT=${PGADMIN_PORT}
     ports: 
-      - "8080:80"
+      - "${PGADMIN_PORT}:80"
     volumes: 
       - pgadmin-data-2024:/var/lib/pgadmin
     depends_on: 

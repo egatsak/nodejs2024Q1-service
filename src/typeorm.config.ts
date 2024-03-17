@@ -1,9 +1,10 @@
 import { DataSource, DataSourceOptions } from 'typeorm';
 
-export const typeOrmConfig: DataSourceOptions = {
+export const typeOrmConfig = {
+  // TODO fix issue with error at migration generation
   type: 'postgres',
   host: process.env.POSTGRES_HOST ?? 'localhost',
-  port: +process.env.POSTGRES_PORT ?? 4000,
+  port: +process.env.POSTGRES_PORT ?? 5432,
   username: process.env.DATABASE_USER ?? 'postgres',
   password: process.env.DATABASE_PASSWORD ?? 'postgres',
   database: process.env.DATABASE_NAME ?? 'rest_service',
@@ -13,7 +14,8 @@ export const typeOrmConfig: DataSourceOptions = {
   migrations: [__dirname + '../../migrations/**/*.ts', __dirname + '../../migrations/**/*.js'],
   synchronize: false,
   logging: true,
-};
+} satisfies DataSourceOptions;
+
 export const appDataSource = new DataSource(typeOrmConfig);
 
 appDataSource
