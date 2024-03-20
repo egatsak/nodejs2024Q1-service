@@ -22,9 +22,9 @@ import {
 } from '@nestjs/swagger';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdatePasswordDto } from './dto/update-password.dto';
-import { User } from './entities/user.entity';
 import { UsersService } from './users.service';
 import { UserScheme } from './users.scheme';
+import { UserResponse } from './users.interface';
 
 @ApiTags('User')
 @Controller('user')
@@ -38,7 +38,7 @@ export class UsersController {
   })
   @UseInterceptors(ClassSerializerInterceptor)
   @Post()
-  create(@Body() createUserDto: CreateUserDto): Promise<User> {
+  create(@Body() createUserDto: CreateUserDto): Promise<UserResponse> {
     return this.userService.createUser(createUserDto);
   }
 
@@ -49,7 +49,7 @@ export class UsersController {
   })
   @UseInterceptors(ClassSerializerInterceptor)
   @Get()
-  getAll(): Promise<User[]> {
+  getAll(): Promise<UserResponse[]> {
     return this.userService.getAll();
   }
 
@@ -60,7 +60,7 @@ export class UsersController {
   })
   @UseInterceptors(ClassSerializerInterceptor)
   @Get(':id')
-  getById(@Param('id', new ParseUUIDPipe()) id: string): Promise<User> {
+  getById(@Param('id', new ParseUUIDPipe()) id: string): Promise<UserResponse> {
     return this.userService.getById(id);
   }
 
@@ -79,7 +79,7 @@ export class UsersController {
   changePassword(
     @Param('id', new ParseUUIDPipe()) id: string,
     @Body(ValidationPipe) updatePassword: UpdatePasswordDto,
-  ): Promise<User> {
+  ): Promise<UserResponse> {
     return this.userService.updateUserPassword(id, updatePassword);
   }
 

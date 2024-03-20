@@ -1,5 +1,6 @@
 import { Exclude, Transform } from 'class-transformer';
 import { Column, CreateDateColumn, Entity, PrimaryGeneratedColumn, UpdateDateColumn, VersionColumn } from 'typeorm';
+import { UserResponse } from '../users.interface';
 
 @Entity()
 export class User {
@@ -26,5 +27,9 @@ export class User {
 
   constructor(partial: Partial<User>) {
     Object.assign(this, partial);
+  }
+
+  toResponse() {
+    return this as unknown as UserResponse;
   }
 }
