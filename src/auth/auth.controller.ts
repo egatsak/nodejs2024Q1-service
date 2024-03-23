@@ -11,11 +11,15 @@ import {
 } from '@nestjs/common';
 import { ApiCreatedResponse, ApiOkResponse, ApiOperation, ApiTags } from '@nestjs/swagger';
 
-import { ValidBody } from 'src/common/decorators/valid-body.decorator';
-import { CreateUserDto } from 'src/users/dto/create-user.dto';
 import { AuthService } from './auth.service';
-import { AuthScheme, TokensScheme } from './auth.scheme';
+
+import { ValidBody } from 'src/common/decorators/valid-body.decorator';
+import { Public } from 'src/common/decorators/public.decorator';
+
+import { CreateUserDto } from 'src/users/dto/create-user.dto';
 import { RefreshDto } from './dto/refresh.dto';
+
+import { AuthScheme, TokensScheme } from './auth.scheme';
 
 @ApiTags('Auth')
 @Controller('auth')
@@ -23,6 +27,7 @@ import { RefreshDto } from './dto/refresh.dto';
 export class AuthController {
   constructor(private readonly authService: AuthService) {}
 
+  @Public()
   @Post('login')
   @ApiOperation({
     summary: 'Login (remove password from response), generate tokens pair',
@@ -37,6 +42,7 @@ export class AuthController {
     return this.authService.signIn(createUserDto);
   }
 
+  @Public()
   @Post('signup')
   @ApiOperation({
     summary: 'Create user (remove password from response), generate tokens pair',
@@ -51,6 +57,7 @@ export class AuthController {
     return this.authService.signUp(createUserDto);
   }
 
+  @Public()
   @ApiOperation({
     summary: 'Generate tokens pair using refresh token',
   })
